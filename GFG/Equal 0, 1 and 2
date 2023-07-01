@@ -1,0 +1,32 @@
+class Solution 
+{ 
+    long getSubstringWithEqual012(String str) 
+    { 
+        int nZero=0;
+       int nOnes=0;
+       int nTwos=0;
+       int count=0;
+       String diff="";
+       HashMap<String,Integer> map=new HashMap<>();
+       map.put("0#0",1);
+       for(int i=0; i<str.length(); i++){
+           
+         if(str.charAt(i)=='0'){
+             nZero++;
+         }else if(str.charAt(i)=='1'){
+             nOnes++;
+         }else{
+             nTwos++;
+         }
+      
+         diff=(nOnes-nZero)+"#"+(nTwos-nOnes) ;
+           if(map.containsKey(diff)){
+               count+=map.get(diff);
+               map.put(diff,map.get(diff)+1);
+           }else{
+               map.put(diff,1);
+           }
+       }
+       return count;
+    }
+} 
