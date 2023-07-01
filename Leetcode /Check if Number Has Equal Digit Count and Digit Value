@@ -1,0 +1,31 @@
+class Solution {
+    public boolean digitCount(String num) {
+        HashMap<Integer,Integer> map=new HashMap<>();
+        for(int i=0 ;i <num.length(); i++){
+            char st=num.charAt(i);
+         // Integer s= Integer.parseInt(st);
+         int s=st-'0';
+            if(map.containsKey(s)){
+               map.put(s,map.get(s)+1);
+            }else{
+              map.put(s,1);
+            }
+        }
+        for(int i=0; i<num.length(); i++){
+             char st=num.charAt(i);
+         // Integer s= Integer.parseInt(st);
+           int s=st-'0';
+             if(map.containsKey(i)){
+                if(map.get(i)!=s){
+                    return false;
+                }
+             }else{
+                 if(s!=0){
+                     return false;
+                 }
+             }
+        }
+
+    return true;
+    }
+}
