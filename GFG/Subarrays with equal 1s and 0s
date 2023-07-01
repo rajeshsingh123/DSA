@@ -1,0 +1,33 @@
+
+class Solution
+{
+    //Function to count subarrays with 1s and 0s.
+    static int countSubarrWithEqualZeroAndOne(int arr[], int n)
+    {
+
+    int nZero=0;
+    int nOnes=0;
+       int count=0;
+       int diff=0;
+       HashMap<Integer,Integer> map=new HashMap<>();
+       map.put(0,1);
+       for(int i=0; i<arr.length; i++){
+         //  ssf+=arr[i];
+         if(arr[i]==0){
+             nZero++;
+         }else{
+             nOnes++;
+         }
+         diff=nOnes-nZero;
+           if(map.containsKey(diff)){
+               count+=map.get(diff);
+               map.put(diff,map.get(diff)+1);
+           }else{
+               map.put(diff,1);
+           }
+       }
+       return count;
+        
+    }
+}
+
