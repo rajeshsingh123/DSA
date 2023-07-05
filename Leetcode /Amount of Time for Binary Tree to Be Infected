@@ -1,0 +1,68 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int amountOfTime(TreeNode root, int target) {
+         ArrayList<TreeNode> ntrp=nodeToRootPath(root,target);
+        int h=0;
+        int ht=0;
+        int ans=0;
+        for(int i=0;i<ntrp.size(); i++){
+            TreeNode block=null;
+            if(i!=0){
+                block=ntrp.get(i-1);
+            }
+            ht=height(ntrp.get(i),block);
+            ht=ht+i;
+            ans=Math.max(ans,ht);
+        }
+        return ans;
+    }
+    public static int height(TreeNode node, TreeNode block){
+        if(node==null){
+            return -1;
+        }
+        if(node==block){
+            return -1;
+        }
+       int lh=height(node.left,block);
+       int rh=height(node.right,block);
+        return Math.max(lh,rh)+1;
+    }
+          public static ArrayList<TreeNode> nodeToRootPath(TreeNode node, int data){
+    // write your code here
+    if(node==null){
+      return new ArrayList<TreeNode>();
+    }
+  if(node.val==data){
+    ArrayList<TreeNode> list=new ArrayList<TreeNode>();
+    list.add(node);
+    return list;
+  }
+    ArrayList<TreeNode> list1= nodeToRootPath(node.left,data);
+     if(list1.size()>0){
+       list1.add(node);
+       return list1;
+     }
+      ArrayList<TreeNode> list2= nodeToRootPath(node.right,data);
+     if(list2.size()>0){
+       list2.add(node);
+       return list2;
+     }
+      return new ArrayList<TreeNode>();
+
+
+    }
+}
