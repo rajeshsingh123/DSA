@@ -1,0 +1,23 @@
+
+class Solution {
+   private TreeNode prev;
+  private int ans;
+    public int getMinimumDifference(TreeNode root) {
+       ans=Integer.MAX_VALUE;
+      solve(root);   
+      return ans;
+    }
+   public void solve(TreeNode root){
+     if(root==null){
+       return;
+     }
+        solve(root.left);
+        if(prev!=null){
+          ans=Math.min(ans,Math.abs(root.val-prev.val));
+          //System.out.println(ans);
+        }
+        prev=root;
+        solve(root.right);
+
+   }
+}
