@@ -1,0 +1,33 @@
+public static Node post_order(int pre[], int size) 
+{
+    //Your code here
+    ArrayList<Integer> list=new ArrayList<>();
+    for(int i=0; i<pre.length; i++){
+        list.add(pre[i]);
+    }
+   Node root= fun(list);
+   return root;
+   
+   
+} 
+  public static Node fun(ArrayList<Integer> list){
+      if(list.size()==0){
+          return null;
+      }
+      
+      Node root=new Node(list.get(0));
+      ArrayList<Integer> leftpre=new ArrayList<>();
+      ArrayList<Integer> rightpre=new ArrayList<>();
+      for(int i=1 ;i<list.size(); i++){
+          if(list.get(i)<root.data){
+              leftpre.add(list.get(i));
+          }else{
+              rightpre.add(list.get(i));
+          }
+      }
+      root.left=fun(leftpre);
+      root.right=fun(rightpre);
+     return root;
+
+
+  }
