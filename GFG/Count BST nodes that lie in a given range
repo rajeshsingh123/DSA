@@ -1,0 +1,21 @@
+class Solution
+{
+    //Function to count number of nodes in BST that lie in the given range.
+    static int count;
+    int getCount(Node root,int l, int h)
+    {
+        count=0;
+       return fun(root,l,h);
+    }
+    public static int  fun(Node root, int l, int h){
+         if(root==null){
+            return 0;
+        }
+       if(root.data>=l && root.data<=h){
+           count++;
+       }
+       fun(root.left,l,h);
+       fun(root.right,l,h);
+       return count;
+    }
+}
