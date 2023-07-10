@@ -1,0 +1,30 @@
+class Solution {
+    public List<String> letterCasePermutation(String s) {
+        
+   ArrayList<String> ans=new ArrayList<>();
+   
+        solve(s,ans,0,"");
+        return  ans;
+    }
+   public void solve(String s,ArrayList<String> ans,int idx,String asf){
+               if(idx==s.length()){
+                   ans.add(asf);
+                   return;
+               }
+
+        char ch=s.charAt(idx);
+
+       if(ch>='a' && ch<='z'){
+           solve(s,ans,idx+1,asf+ch);
+           char ch1=Character.toUpperCase(ch);
+           solve(s,ans,idx+1,asf+ch1);
+       }else if(ch>='A' && ch<='Z'){
+           solve(s,ans,idx+1,asf+ch);
+           char ch1=Character.toLowerCase(ch);
+           solve(s,ans,idx+1,asf+ch1);
+       }else{
+           solve(s,ans,idx+1,asf+ch);
+       }
+   }
+
+}
