@@ -1,0 +1,42 @@
+class Solution {
+  public static StringBuilder asf=new StringBuilder();
+    int countDistinctIslands(int[][] grid) {
+        // Your Code here
+         int count=0;
+         HashSet<String> set=new HashSet<>();
+        for(int r=0; r< grid.length; r++){
+            for(int c=0; c< grid[0].length; c++){
+                if(grid[r][c]==1){
+                     asf=new StringBuilder();
+                    dfs(grid,r,c,asf);
+                    set.add(asf.toString());
+                    }
+            }
+        }
+        return set.size();    
+    }
+    
+     public void dfs(int [][] grid, int r, int c,StringBuilder asf){
+        grid[r][c]=0;
+        if(r-1>=0 && grid[r-1][c]==1){
+             asf.append("B");
+            dfs(grid,r-1,c,asf);
+             asf.append("Z");
+        }
+         if(c+1<grid[0].length && grid[r][c+1]==1){
+             asf.append("R");
+            dfs(grid,r,c+1,asf);
+             asf.append("Z");
+        }
+         if(r+1<grid.length && grid[r+1][c]==1){
+             asf.append("T");
+            dfs(grid,r+1,c,asf);
+             asf.append("Z");
+        }
+     if(c-1>=0 && grid[r][c-1]==1){
+             asf.append("L");
+            dfs(grid,r,c-1,asf);
+             asf.append("Z");
+        }  
+    }    
+}
