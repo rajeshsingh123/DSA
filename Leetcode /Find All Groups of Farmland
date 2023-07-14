@@ -1,0 +1,60 @@
+class Solution {
+    public static int maxr;
+    public static int maxc;
+    public int[][] findFarmland(int[][] land) {
+        List<Integer> list=new ArrayList<>();
+        for(int i=0; i<land.length;i++){
+            for(int j=0; j<land[0].length;j++){
+          if(land[i][j]==1){
+               maxr=i;
+              maxc=j;
+              dfs(land,i,j);
+             
+              list.add(i);
+              list.add(j);
+              int k=i;
+              int l=j;
+              while( k+1 <land.length && l+1<land[0].length && land[k+1][l+1]==-1 ){
+                  k++;
+                  l++;
+              }
+              list.add(maxr);
+              list.add(maxc);
+          }
+
+            }
+        }
+        int a=list.size()/4;
+     int[][] ans=new int[a][4];
+     System.out.println(list);
+      int k=0;
+  for(int i=0;i<ans.length; i++){
+      for(int j=0; j<ans[0].length; j++){
+          ans[i][j]=list.get(k);
+          k++;
+      }
+  }
+     return ans;
+    }
+   public  void dfs(int[][] grid, int r, int c){
+        grid[r][c]=-1;
+        if(r>maxr){
+            maxr=r;
+        }
+        if(c>maxc){
+                maxc=c;
+        }
+        if(r-1>=0 && grid[r-1][c]==1){
+            dfs(grid,r-1,c);
+        }
+         if(c+1<grid[0].length && grid[r][c+1]==1){
+            dfs(grid,r,c+1);
+        }
+         if(r+1<grid.length && grid[r+1][c]==1){
+            dfs(grid,r+1,c);
+        }
+     if(c-1>=0 && grid[r][c-1]==1){
+            dfs(grid,r,c-1);
+        }
+    }
+}
