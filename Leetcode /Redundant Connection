@@ -1,0 +1,51 @@
+class DSU{
+     int par[];
+     int rank[];
+    DSU(int vtces){
+        par=new int[vtces];
+        rank=new int[vtces];
+        for(int i=0;i<vtces; i++){
+            par[i]=i;
+            rank[i]=1;
+        }
+    }
+    public int find(int mem){
+        if(mem==par[mem]){
+            return mem;
+        }
+        int l=find(par[mem]);
+        par[mem]=l;
+        return l;
+    }
+    public void union(int x,int y){
+        int xl=find(x);
+        int yl=find(y);
+        if(xl!=yl){
+            if(rank[xl]>rank[yl]){
+                par[yl]=xl;
+            }else if(rank[xl]<rank[yl]){
+                par[xl]=yl;
+            }else{
+                par[xl]=yl;
+                rank[yl]++;
+            }
+        }
+    }
+}
+class Solution {
+    public int[] findRedundantConnection(int[][] edges) {
+    DSU ds=new DSU(edges.length+1);
+    int a=-1;
+     for(int i=0;i<edges.length;i++){
+         if(ds.find(edges[i][0])==ds.find(edges[i][1])){
+          a=i;  
+         }else{
+             ds.union(edges[i][0],edges[i][1]);
+         }
+     }
+      int ans []=new int[2];
+      ans[0]=edges[a][0];
+      ans[1]=edges[a][1];
+      return ans;   
+    }
+}
