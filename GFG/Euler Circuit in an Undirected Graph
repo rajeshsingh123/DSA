@@ -1,0 +1,14 @@
+class Solution
+{
+    public boolean isEularCircuitExist(int V, ArrayList<ArrayList<Integer>> adj)
+    {
+        // Code here
+        int ec=0,oc=0;
+        for(ArrayList<Integer> list:adj){
+            if(list.size()%2==0) ec++;
+            else oc++;
+        }
+        
+        return oc==0;
+    }
+}
