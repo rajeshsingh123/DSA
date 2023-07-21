@@ -1,0 +1,39 @@
+class Solution {
+    public boolean isBipartite(int[][] graph) {
+          int color[]=new int[graph.length];
+          for(int i=0;i<graph.length;i++){
+              color[i]=-1;
+          }
+     for(int i=0;i<graph.length;i++){
+         if(color[i]==-1){
+           boolean ans=  dfs(i,color,graph);
+           if(ans==false){
+               return false;
+           }
+             
+         }
+     }
+     return true;
+
+    }
+    public static boolean dfs(int vtx,int [] color, int [][] graph){
+           if(color[vtx]==-1){
+               color[vtx]=1;
+          }
+          for(int nbr:graph[vtx]){
+              if(color[nbr]==-1){
+                  color[nbr]=1-color[vtx];
+                 boolean a= dfs(nbr,color,graph);
+                 if(a==false){
+                     return false;
+                 }
+              }else {
+                  if(color[nbr]==color[vtx]){
+                      return false;
+                  }
+              }
+          }
+     return true;
+
+    }
+}
