@@ -1,0 +1,43 @@
+
+class Solution
+{
+    static int[] findOrder(int n, int m, ArrayList<ArrayList<Integer>> prerequisites) 
+    {
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            adj.add(new ArrayList<>());
+        }
+        for (int i = 0; i < m; i++) {
+            adj.get(prerequisites.get(i).get(1)).add(prerequisites.get(i).get(0));
+        }
+        
+          int[] indegree=new int[n];
+         Queue<Integer> q=new LinkedList<>();
+        for(int i=0;i<n;i++){
+            for(int it:adj.get(i)){
+                indegree[it]++;
+            }
+        }
+        for(int i=0;i<n;i++){
+            if(indegree[i]==0){
+                q.add(i);
+            }
+        }
+        int ind = 0;
+        int topo[] = new int[n];
+        while(q.size()>0){
+            int node=q.remove();
+            topo[ind++] = node;
+            for(int nbr:adj.get(node)){
+                indegree[nbr]--;
+                if(indegree[nbr]==0){
+                    q.add(nbr);
+                }
+            }
+        }
+        if (ind == n) return topo;
+        int[] arr = {};
+        return arr;
+        
+    }
+}
