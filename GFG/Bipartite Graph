@@ -1,0 +1,39 @@
+class Solution
+{
+    public boolean isBipartite(int V, ArrayList<ArrayList<Integer>>adj)
+    {
+        int color[]=new int[V];
+          for(int i=0;i<V;i++){
+              color[i]=-1;
+          }
+     for(int i=0;i<V;i++){
+         if(color[i]==-1){
+           boolean ans=  dfs(i,color,adj);
+           if(ans==false){
+               return false;
+           }
+             
+         }
+     }
+     return true;
+    }
+      public static boolean dfs(int vtx,int [] color, ArrayList<ArrayList<Integer>>adj){
+           if(color[vtx]==-1){
+               color[vtx]=1;
+          }
+          for(int nbr:adj.get(vtx)){
+              if(color[nbr]==-1){
+                  color[nbr]=1-color[vtx];
+                 boolean a= dfs(nbr,color,adj);
+                 if(a==false){
+                     return false;
+                 }
+              }else {
+                  if(color[nbr]==color[vtx]){
+                      return false;
+                  }
+              }
+          }
+     return true;
+    }   
+}
