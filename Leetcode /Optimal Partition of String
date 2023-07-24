@@ -1,0 +1,21 @@
+class Solution {
+    public int partitionString(String s) {
+         int acq=0;
+    int rel=0;
+    int ans=0;
+    int count=1;
+    HashSet<Character> set=new HashSet<>();
+   while(acq<s.length()){
+       char ch=s.charAt(acq);
+       if(set.contains(ch)){
+           set=new HashSet<>();
+           count++;
+           rel=acq;
+       }else{
+           set.add(ch);
+           acq++;
+       }
+   }
+       return count;
+    }
+}
