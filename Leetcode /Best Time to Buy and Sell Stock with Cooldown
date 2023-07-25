@@ -1,0 +1,19 @@
+class Solution {
+    public int maxProfit(int[] prices) {
+        if(prices.length==1){
+            return 0;
+        }
+        int pbsp=-prices[0];
+        int pssp=0;
+        int pcsp=0;
+        for(int i=1;i<prices.length;i++){
+          int nbsp=Math.max(pcsp-prices[i],pbsp);
+          int nssp=Math.max(pssp,pbsp+prices[i]);
+          int npcsp=Math.max(pcsp,pssp);
+          pbsp=nbsp;
+          pssp=nssp;
+          pcsp=npcsp;
+        }
+   return   pssp;
+    }
+}
