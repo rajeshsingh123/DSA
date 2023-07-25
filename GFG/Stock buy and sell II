@@ -1,0 +1,18 @@
+class Solution {
+    public static int stockBuyAndSell(int n, int[] prices) {
+      int maxprofit=0;
+        int i=0;
+        int lsf=Integer.MAX_VALUE;
+        while(i<prices.length){
+          if(prices[i]>lsf){
+              maxprofit+=(prices[i]-lsf);
+              lsf=prices[i];
+          }else{
+              lsf=prices[i];
+          }
+          i++;
+        }
+        return maxprofit; 
+    }
+}
+   
