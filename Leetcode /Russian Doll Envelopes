@@ -1,0 +1,57 @@
+class Solution {
+    public int maxEnvelopes(int[][] envelopes) {
+       // Arrays.sort(envelopes,a,b)->{return a[0]-b[0]};
+       
+      //Arrays.sort(envelopes, (a, b) -> Integer.compare(a[0],b[0]));
+    
+//        int dp[]=new int[envelopes.length];
+//        int ans=0;
+//        for(int i=0;i<envelopes.length;i++){
+//            int max=0;
+//            for(int j=0;j<i;j++){
+//                if(envelopes[j][1]<envelopes[i][1]){
+//                    if(envelopes[j][0]!=envelopes[i][0]){
+//               max=Math.max(max,dp[j]);  
+//                    }
+                   
+//                }
+//            }
+//            dp[i]=max+1;
+//            ans=Math.max(dp[i],ans);
+//        }
+//   return ans;
+
+   Arrays.sort(envelopes, new Comparator<int[]>(){
+        public int compare(int[] arr1, int[] arr2){
+            if(arr1[0] == arr2[0])
+                return arr2[1] - arr1[1];
+            else
+                return arr1[0] - arr2[0];
+       } 
+    });
+
+    int n = envelopes.length;
+        List<Integer> list = new ArrayList<>();
+        list.add(envelopes[0][1]);
+        
+        for (int i = 1; i < n; i++) {
+            if (envelopes[i][1] > list.get(list.size() - 1)) {
+            list.add(envelopes[i][1]);                
+            } else {
+                int low = 0;
+                int high = list.size() - 1;
+                while (low <= high) {
+                    int mid = (high + low) / 2;
+                    if (list.get(mid) < envelopes[i][1]) {
+                        low = mid + 1;
+                    } else {
+                        high = mid - 1;
+                    }
+                }
+                list.set(low, envelopes[i][1]);
+            }
+        }
+        return list.size();
+
+    }
+}
