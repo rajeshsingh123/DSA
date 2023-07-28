@@ -1,0 +1,32 @@
+class Solution {
+    public List<List<String>> partition(String s) {
+   List<List<String>> ans=new ArrayList<>();
+   List<String> list=new ArrayList<>();
+     fun(s,0,ans,list);
+   return ans;
+    }
+
+  public void fun(String s, int idx,List<List<String>> ans,List<String> list){  
+    if(s.length()==idx){
+        ans.add(new ArrayList<>(list));
+        return;
+    }
+     for(int i=idx;i<s.length();i++){
+         if(isPalindrome(s.substring(idx,i+1))){
+             list.add(s.substring(idx,i+1));     
+            fun(s,i+1,ans,list);
+         list.remove(list.size()-1);
+     }
+     
+     }
+  }
+  public boolean isPalindrome(String s) {
+        int l=0,r=s.length()-1;
+        while(l<r){
+            if(s.charAt(l)!=s.charAt(r)) return false;
+            l++;
+            r--;
+        }  
+        return true;
+    }
+}
