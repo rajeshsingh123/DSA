@@ -1,0 +1,132 @@
+class Solution {
+    public int minCut(String s) {
+           boolean dp[][]=new boolean [s.length()][s.length()];
+       for(int gap=0;gap<dp.length;gap++){
+          for(int i=0, j=gap;j<dp.length;j++,i++){
+      if(gap==0){
+          dp[i][j]=true;
+      }else if(gap==1){
+         dp[i][j]=s.charAt(i)==s.charAt(j);
+      }else{
+          if(s.charAt(i)==s.charAt(j)&&dp[i+1][j-1]==true){
+              dp[i][j]=true;
+          }
+      }
+   } 
+ }
+  
+  int dp1[]=new int[dp.length];
+  for(int j=1;j<dp1.length;j++){
+      if(dp[0][j]==true){
+          dp1[j]=0;
+      }else{
+        int min=Integer.MAX_VALUE;
+        for(int i=j;i>=1;i--){
+            if(dp[i][j]){
+                if(dp1[i-1]<min){
+                    min=dp1[i-1];
+                }
+            }
+        }
+        dp1[j]=min+1;
+      }
+  }
+        return dp1[dp.length-1];
+  }
+   }
+
+
+//-----------------Solution by cut type dp--time complexity=o(n^3)--submitted----------------
+
+
+
+// class Solution {
+//     public int minCut(String s) {
+//        boolean dp[][]=new boolean [s.length()][s.length()];
+//        for(int gap=0;gap<dp.length;gap++){
+//           for(int i=0, j=gap;j<dp.length;j++,i++){
+//       if(gap==0){
+//           dp[i][j]=true;
+//       }else if(gap==1){
+//          dp[i][j]=s.charAt(i)==s.charAt(j);
+//       }else{
+//           if(s.charAt(i)==s.charAt(j)&&dp[i+1][j-1]==true){
+//               dp[i][j]=true;
+//           }
+//       }
+//    } 
+//  }
+//  int dp1[][]=new int[dp.length][dp.length];
+//  for(int g=0;g<dp.length;g++){
+//      for(int i=0,j=g;j<dp.length;j++,i++){
+//       if(g==0){
+//           dp1[i][j]=0;
+//       }else if(g==1){
+//           if(s.charAt(i)==s.charAt(j)){
+//               dp1[i][j]=0;
+//           }else{
+//               dp1[i][j]=1;
+//           }
+//       }else{
+//           if(dp[i][j]==true){
+//               dp1[i][j]=0;
+//           }else{
+//               int min=Integer.MAX_VALUE;
+//            for(int k=i;k<j;k++){
+//                int l=dp1[i][k];
+//                int r=dp1[k+1][j];
+//                if(l+r+1<min){
+//                    min=l+r+1;
+//                }
+//            }
+//            dp1[i][j]=min;
+//           }
+//       }
+//      }
+//  }
+//   return dp1[0][dp.length-1];
+
+//   }
+//    }
+
+
+
+
+
+//-----------------------------solution by recursion-----------TLE COMING------------------
+// class Solution {
+//     public int minCut(String s) {
+//         List<List<String>> ans=new ArrayList<>();
+//    List<String> list=new ArrayList<>();
+//      fun(s,0,ans,list);
+//      int c=Integer.MAX_VALUE;
+//      for(List<String> list1:ans){
+//          c=Math.min(list1.size()-1,c);
+//      }
+//    return c;
+        
+//     }
+//     public void fun(String s, int idx,List<List<String>> ans,List<String> list){  
+//     if(s.length()==idx){
+//         ans.add(new ArrayList<>(list));
+//         return;
+//     }
+//      for(int i=idx;i<s.length();i++){
+//          if(isPalindrome(s.substring(idx,i+1))){
+//              list.add(s.substring(idx,i+1));     
+//             fun(s,i+1,ans,list);
+//          list.remove(list.size()-1);
+//      }
+     
+//      }
+//   }
+//   public boolean isPalindrome(String s) {
+//         int l=0,r=s.length()-1;
+//         while(l<r){
+//             if(s.charAt(l)!=s.charAt(r)) return false;
+//             l++;
+//             r--;
+//         }  
+//         return true;
+//     }
+// }
