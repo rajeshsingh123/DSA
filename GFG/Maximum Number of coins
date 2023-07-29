@@ -1,0 +1,23 @@
+
+class Solution{
+    int maxCoins(int N, ArrayList<Integer> arr) {
+	  int dp[][]=new int[arr.size()][arr.size()];
+        for(int gap=0;gap<dp.length;gap++){
+            for(int i=0,j=gap;j<dp.length;j++,i++){
+                 int max=Integer.MIN_VALUE;
+               for(int k=i;k<=j;k++){
+           int l=k==i?0:dp[i][k-1];
+           int r=k==j?0:dp[k+1][j];
+           int val=(i==0?1:arr.get(i-1))*arr.get(k)*(j==arr.size()-1?1:arr.get(j+1));
+           int total=l+r+val;
+            if(total>max){
+            max=total;
+                       }
+               }
+               dp[i][j]=max;
+            }
+        }
+          return dp[0][dp.length-1];
+		
+	}
+}
