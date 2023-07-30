@@ -1,0 +1,121 @@
+class Solution {
+    public String longestPalindrome(String s) {
+        if(s.length()==1){
+            return s;
+        }
+         int ans=0;
+         String s1="";
+       boolean dp[][]=new boolean [s.length()][s.length()];
+       for(int gap=0;gap<dp.length;gap++){
+          for(int i=0, j=gap;j<dp.length;j++,i++){
+      if(gap==0){
+          dp[i][j]=true;
+          if(gap+1>s1.length()){
+                 s1=s.substring(i,j+1);
+             }
+      }else if(gap==1){
+         dp[i][j]=s.charAt(i)==s.charAt(j);
+         if(s.charAt(i)==s.charAt(j)){
+             if(gap+1>s1.length()){
+                 s1=s.substring(i,j+1);
+             }
+         }
+
+      }else{
+          if(s.charAt(i)==s.charAt(j)&&dp[i+1][j-1]==true){
+              dp[i][j]=true;
+             if(gap+1>s1.length()){
+                 s1=s.substring(i,j+1);
+             }
+          }
+      }
+   } 
+ }
+ return s1;
+    }
+    }
+
+
+
+//---------------REcursive TLE--O(n^2)----------
+// class Solution {
+//     int ans;
+//     String s1;
+//     public String longestPalindrome(String str) {
+//         ans=Integer.MIN_VALUE;
+//         s1="";
+//       fun(str,0,"");
+
+//          return s1;
+//     }
+//     public void fun(String s, int idx, String asf){
+//        if(ispalindrome(asf)){
+//             if(asf.length()>ans){
+//                 s1=asf;
+//                 ans=asf.length();
+//             }
+//         }
+
+//         if(idx==s.length()){
+//             return;
+//         }
+//         fun(s,idx+1,asf+s.charAt(idx));
+//         fun(s,idx+1,"");
+
+
+//     }
+//      public static boolean ispalindrome(String s){
+//         int left=0;
+//         int right=s.length()-1;
+//         while(left<right){
+//             if(s.charAt(left)==s.charAt(right)){
+//                 left++;
+//                 right--;
+//             }else{
+//                 return false;
+//             }
+//         }
+//         return true;
+//     }
+
+// }
+
+
+
+
+//--------------****---O(n^3)-TLE COMING  BRUTE FORCE-------
+
+
+// class Solution {
+//     public String longestPalindrome(String str) {
+//         int count=0;
+//         String ans="";
+//         for(int i=0; i<str.length(); i++){
+//             for(int j=i+1;j<=str.length();j++){
+//                 String ss=str.substring(i,j);
+//                 if(ispalindrome(ss)){
+//                     int len=ss.length();
+//                     if(len>count){
+//                          ans=ss;
+//                         count=len;
+//                     }
+//                 }
+//             }
+//         }
+//         return  ans;
+//     }
+
+//       public static boolean ispalindrome(String s){
+//         int left=0;
+//         int right=s.length()-1;
+//         while(left<right){
+//             if(s.charAt(left)==s.charAt(right)){
+//                 left++;
+//                 right--;
+//             }else{
+//                 return false;
+//             }
+//         }
+//         return true;
+//     }
+// }
