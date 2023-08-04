@@ -1,0 +1,75 @@
+class Solution {
+    public int minMoves(int[] nums) {
+         int small=Integer.MAX_VALUE;
+   for(int i=0;i<nums.length;i++){
+            if(nums[i]<small){
+                small=nums[i];
+            }
+            
+        }
+        int count=0;
+        for(int i=0;i<nums.length;i++){
+         count+=nums[i]-small;
+        }
+   return count;
+
+
+
+
+    }
+}
+
+
+//-------TLE brute FORCE APPROACH----------
+// class Solution {
+//     public int minMoves(int[] nums) {
+//     int min=find1(nums);
+//     int max=find(nums);
+//     int count=nums[max]-nums[min];
+//    int  ans=count;
+//     while(nums[min]!=nums[max]){
+//         update(nums,count,max);
+//         max=find(nums);
+//         min=find1(nums);
+//         count=nums[max]-nums[min];
+//         ans+=count;
+//     } 
+//     return ans;
+//     }
+//     public int find1(int [] nums){
+//         int ans=Integer.MAX_VALUE;
+//         int idx=-1;
+//         for(int i=0;i<nums.length;i++){
+//             if(nums[i]<ans){
+//                 idx=i;
+//                 ans=nums[i];
+//             }
+            
+//         }
+//          return idx;
+//     }
+//      public int find(int [] nums){
+//         int ans=Integer.MIN_VALUE;
+//         int idx=-1;
+//         for(int i=0;i<nums.length;i++){
+//             if(nums[i]>ans){
+//                 idx=i;
+//                 ans=nums[i];
+//             }
+            
+//         }
+//          return idx;
+//     }
+//      public void update(int [] nums,int val,int maxidx){
+//         for(int i=0;i<nums.length;i++){
+//             if(i!=maxidx){
+//               nums[i]+=val;
+//             }
+            
+//         }
+         
+//     }
+
+
+
+// }
