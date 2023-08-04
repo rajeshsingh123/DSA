@@ -1,0 +1,30 @@
+class Solution {
+    public boolean validSquare(int[] p1, int[] p2, int[] p3, int[] p4) {
+        HashSet<Integer> set=new HashSet<>();
+         int dist1=distance(p1,p2);
+         int dist2=distance(p1,p3);
+         int dist3=distance(p1,p4);
+         int dist4=distance(p2,p3);
+         int dist5=distance(p2,p4);
+         int dist6=distance(p3,p4);
+         set.add(dist1);
+         set.add(dist2);
+         set.add(dist3);
+         set.add(dist4);
+         set.add(dist5);
+         set.add(dist6);
+         if(set.size()>2 || set.contains(0)){
+             return false;
+         }
+         return true;
+
+    }
+    public int distance(int[] p1,int []p2){
+        int x1=p1[0];
+        int y1=p1[1];
+        int x2=p2[0];
+        int y2=p2[1];
+        int d=((y2-y1)*(y2-y1)+(x2-x1)*(x2-x1)) ;
+       return d;
+    }
+}
