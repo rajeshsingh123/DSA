@@ -1,0 +1,51 @@
+class Solution
+{
+    //Function to sort the given linked list using Merge Sort.
+    static Node mergeSort(Node head)
+    {
+       if(head==null || head.next==null){
+            return head;
+        }
+        Node slow=head;
+        Node fast=head;
+        Node prev=null;
+
+        while(fast!=null && fast.next!=null){
+            prev=slow;
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        prev.next=null;
+        Node l1=mergeSort(head);
+        Node l2=mergeSort(slow);
+      Node ans= mergeTwoLists(l1,l2);
+      return ans;
+       
+       
+       
+    }
+     public static Node mergeTwoLists(Node h1, Node h2) {
+        if(h1==null&&h2==null){
+            return null;
+        }
+        Node dummy=new Node(-1);
+        Node ptr=dummy;
+        while(h1!=null && h2!=null){
+            if(h1.data>h2.data){
+                ptr.next=h2;
+                ptr=h2;
+                h2=h2.next;
+            }else{
+                ptr.next=h1;
+                ptr=h1;
+                h1=h1.next;
+            }
+        }
+        if(h1==null){
+            ptr.next=h2;
+        }else if(h2==null){
+            ptr.next=h1;
+        }
+        return dummy.next;
+    }
+}
