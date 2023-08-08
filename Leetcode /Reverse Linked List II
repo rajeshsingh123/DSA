@@ -1,0 +1,80 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+       if(left==right){
+           return head;
+       }
+       ListNode st=null;
+       ListNode end=null;
+       int l=1;
+       ListNode h1=head;
+       while(l!=left){
+           st=h1;
+           h1=h1.next;
+           l++;
+       }
+       ListNode revhead=h1; 
+       if(st!=null){
+           st.next=null;
+       }
+       int r=l;
+       while(r!=right){
+            h1=h1.next;
+            r++;
+       }
+       if(h1.next!=null){
+           end=h1.next;
+           h1.next=null;
+       }
+     ListNode h2=  reverseList(revhead);
+    if(st==null && end==null){
+        System.out.println("st==null && end==null");
+        return h2;
+    }else if(st==null){
+        ListNode h3=h2;
+        while(h3.next!=null){
+            h3=h3.next;
+        }
+        h3.next=end;
+                System.out.println("st==null && end!=null");
+        return h2;
+    }else if(end==null){
+        st.next=h2;
+                System.out.println("st!=null && end==null");
+        return head;
+    }
+    st.next=h2;
+    ListNode h3=h2;
+    while(h3.next!=null){
+        h3=h3.next;
+    }
+    h3.next=end;
+    return head;
+
+    }
+    public ListNode reverseList(ListNode head) {
+               if(head == null || head.next == null) return head;
+        
+        ListNode curr = head;
+        ListNode prev = null;
+        
+        while(curr != null){
+            ListNode nbr = curr.next;
+            curr.next = prev;
+            
+            prev = curr;
+            curr = nbr;
+        }
+        
+        return prev;
+    }
+}
