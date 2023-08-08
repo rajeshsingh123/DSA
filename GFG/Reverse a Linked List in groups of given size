@@ -1,0 +1,64 @@
+class Solution
+{
+    public static Node reverse(Node head, int k)
+    {
+        Node curr=head;
+        Node dummy=new Node(-1);
+        Node ptr=dummy;
+        Node prev=head;
+        int w=size(head)/k;
+        while(w!=0){
+            int tmp=k-1;
+            while(tmp!=0){
+                curr=curr.next;
+                    tmp--;
+            } 
+            Node nbr=curr.next;
+            curr.next=null;
+            reverse(prev);
+            ptr.next=curr;
+            ptr=prev;
+            prev=nbr;
+            curr=nbr;
+            w--;
+        }
+        Node h3=curr;
+        if(h3!=null && h3.next!=null){
+        while(h3.next!=null){
+            h3=h3.next;
+        }
+        reverse(curr);
+     ptr.next=h3;
+        return dummy.next; 
+        }
+         ptr.next=curr;
+        return dummy.next;
+       
+    }
+     public static void reverse(Node head){
+         if(head == null || head.next == null){  
+             return ;
+         }
+        Node curr1 = head;
+        Node prev1 = null;
+        
+        while(curr1 != null){
+            Node nbr1 = curr1.next;
+            curr1.next = prev1;
+            
+            prev1 = curr1;
+            curr1 = nbr1;
+        }
+        
+    }
+    
+    public static  int size(Node head){
+        int l=0; 
+            while(head!=null){
+            l++;
+                head=head.next;
+        }
+        return l;
+    }
+    
+}
