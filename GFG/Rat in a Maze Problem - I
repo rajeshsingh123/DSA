@@ -1,0 +1,48 @@
+class Solution {
+    public static ArrayList<String> findPath(int[][] m, int n) {
+        ArrayList<String> ans=new ArrayList<>();
+        int [][] vis=new int[n][n];
+        vis[0][0]=1;
+        if(m[0][0]==0){
+             ans.add("-1");
+       return ans;  
+        }
+       dfs(0,0,"",m,ans,vis);
+       if(ans.size()==0){
+           ans.add("-1");
+       }
+       return ans;
+    }
+    public static void dfs(int r,int c, String asf,int[][] grid,ArrayList<String> ans,int[][] vis){
+        if(r==grid.length-1 && c==grid[0].length-1){
+            String a=asf;
+            ans.add(a);
+            return;
+        }
+        
+        
+          if(r-1>=0 && grid[r-1][c]==1 && vis[r-1][c]==0 ){
+              vis[r-1][c]=1;
+            dfs(r-1,c,asf+"U",grid,ans,vis);
+            vis[r-1][c]=0;
+        }
+         if(c+1<grid[0].length && grid[r][c+1]==1 && vis[r][c+1]==0){
+             vis[r][c+1]=1;
+            dfs(r,c+1,asf+"R",grid,ans,vis);
+            vis[r][c+1]=0;
+        }
+         if(r+1<grid.length && grid[r+1][c]==1 && vis[r+1][c]==0){
+              vis[r+1][c]=1;
+            dfs(r+1,c,asf+"D",grid,ans,vis);
+             vis[r+1][c]=0;
+        }
+       if(c-1>=0 && grid[r][c-1]==1 && vis[r][c-1]==0){
+         vis[r][c-1]=1;
+            dfs(r,c-1,asf+"L",grid,ans,vis);
+            vis[r][c-1]=0;
+        }
+        
+        
+        
+    }
+}
