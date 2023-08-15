@@ -1,0 +1,75 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public int[][] spiralMatrix(int m, int n, ListNode head) {
+         int[][] matrix=new int[m][n];
+         for(int i=0;i<m;i++){
+             for(int j=0;j<n;j++){
+                 matrix[i][j]=-1;
+             }
+         }
+         int nr=m;
+         int nc=n;
+       int rmin=0;
+       int cmin=0;
+       int rmax=m-1;
+       int cmax=n-1;
+       int count=0;
+    while(count<=nr*nc){
+            for(int i=cmin;i<=cmax&&count<nr*nc; i++){
+              if(head==null){
+                break;
+              }
+          matrix[rmin][i]=head.val;
+          head=head.next;
+         count++;
+            }
+          for(int i=rmin+1;i<=rmax&&count<nr*nc; i++){
+             if(head==null){
+                break;
+              }
+          matrix[i][cmax]=head.val;
+          head=head.next;
+          count++;
+            }
+             for(int i=cmax-1;i>=cmin&&count<nr*nc; i--){
+                if(head==null){
+                break;
+              }
+          matrix[rmax][i]=head.val;
+          head=head.next;
+        count++;
+            }
+            ListNode p=head;
+         for(int i=rmax-1;i>rmin&&count<nr*nc; i--){
+           if(head==null){
+                break;
+              }
+          matrix[i][cmin]=head.val;
+           
+        //  p=head;
+           head=head.next;
+            count++;
+            }   
+           // head=p;
+           if(head==null){
+             break;
+           }
+      rmin++;
+      rmax--;
+      cmin++;
+      cmax--;
+        }
+
+   return matrix;
+
+    }
+}
