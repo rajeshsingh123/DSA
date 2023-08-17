@@ -1,0 +1,60 @@
+class DSU{
+     int par[];
+     int rank[];
+    DSU(int vtces){
+        par=new int[vtces];
+        rank=new int[vtces];
+        for(int i=0;i<vtces; i++){
+            par[i]=i;
+            rank[i]=1;
+        }
+    }
+    public int find(int mem){
+        if(mem==par[mem]){
+            return mem;
+        }
+        int l=find(par[mem]);
+        par[mem]=l;
+        return l;
+    }
+    public void union(int x,int y){
+        int xl=find(x);
+        int yl=find(y);
+        if(xl!=yl){
+            if(rank[xl]>rank[yl]){
+                par[yl]=xl;
+            }else if(rank[xl]<rank[yl]){
+                par[xl]=yl;
+            }else{
+                par[xl]=yl;
+                rank[yl]++;
+            }
+        }
+    }
+}
+
+
+class Solution {
+ public int removeStones(int[][] stones) {
+         DSU dsu=new DSU(stones.length);
+         for(int i=0;i<stones.length;i++){
+             int x=stones[i][0];
+             int y=stones[i][1];
+             for(int j=i+1;j<stones.length;j++){
+                 int x1=stones[j][0];
+                 int y1=stones[j][1];
+                 if(x1==x || y1==y){
+                     dsu.union(i,j);
+                 }
+             }
+         }
+         int ans=0;
+         for(int i=0;i<stones.length;i++){
+             if(dsu.par[i]!=i){
+                 ans++;
+             }
+         }
+         return ans;
+    }
+    
+}
