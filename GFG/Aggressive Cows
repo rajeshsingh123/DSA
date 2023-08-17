@@ -1,0 +1,35 @@
+class Solution {
+    public static int solve(int N, int C, int[] stalls) {
+        Arrays.sort(stalls);
+         int l = 0;
+        int h = stalls[N - 1];
+        int max = -1;
+        while (l < h) {
+            int m = (l + h) / 2;
+            if (check(m, stalls, N, C)) {
+                if (m > max)
+                    max = m;
+                l = m + 1;
+            }
+            else
+                h = m;
+        }
+        return max;
+        
+        
+    }
+    public static boolean check(int num, int stalls[], int N, int C)
+    {
+        int cows = 1;
+        int pos = stalls[0];
+        for (int i = 1; i < N; ++i) {
+            if (stalls[i] - pos >= num) {
+                pos = stalls[i];
+                cows++;
+                if (cows == C)
+                    return true;
+            }
+        }
+        return false;
+    }
+}
