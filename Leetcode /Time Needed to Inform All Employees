@@ -1,0 +1,32 @@
+class Solution {
+    public int numOfMinutes(int n, int headID, int[] manager, int[] informTime) {
+       HashMap<Integer,HashSet<Integer>> map=new HashMap<>();
+       for(int i=0;i<manager.length;i++){
+           if(manager[i]==-1){
+               continue;
+           }
+           if(map.containsKey(manager[i])){
+              HashSet<Integer> set=map.get(manager[i]);
+              set.add(i);
+           }else{
+          HashSet<Integer> set=new HashSet<>();
+          set.add(i);
+          map.put(manager[i],set);
+           }
+       }
+      // int ans=0;
+       return dfs(map,informTime,headID);
+      
+}
+public static int dfs(HashMap<Integer,HashSet<Integer>> map,int[] infromTime,int headID){
+  if(map.containsKey(headID)==false){
+      return 0;
+  }
+  int ans=0;
+for(int key:map.get(headID)){
+ans=Math.max(ans,dfs(map,infromTime,key));
+}
+   
+return ans+infromTime[headID];
+}
+}
