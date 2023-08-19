@@ -1,0 +1,78 @@
+class Solution {
+    public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
+        
+        HashMap<String, HashMap<String, Double>> graph = new HashMap<>();
+        int v=0;
+         for(List<String> l:equations){
+            String s1=l.get(0);
+            String s2=l.get(1);
+             double val=values[v];
+             v++;
+             if(graph.containsKey(s1)){
+               HashMap<String,Double> g1=graph.get(s1);
+                 g1.put(s2,val);
+                  graph.put(s1,g1);
+             }else{
+                HashMap<String,Double> g1=new HashMap<>();
+              g1.put(s2,val);
+               graph.put(s1,g1);
+             }
+              if(graph.containsKey(s2)){
+               HashMap<String,Double> g2=graph.get(s2);
+                 g2.put(s1,1/val);
+                  graph.put(s2,g2);
+             }else{
+              HashMap<String,Double> g2=new HashMap<>();
+               g2.put(s1,1/val);
+            graph.put(s2,g2);
+             }
+            
+            // HashMap<String,Double> g2=new HashMap<>();
+            //    g2.put(s1,1/val);
+            // graph.put(s2,g2);
+        }
+        double ans[]=new double [queries.size()];
+        int i=0;
+        for(List<String> l: queries){
+            String s1=l.get(0);
+            String s2=l.get(1);
+             HashMap<String,Double> vis=new HashMap<>();
+            if(graph.containsKey(s1) ==true && graph.containsKey(s2)==true){
+                if(s1.equals(s2)){
+                    ans[i]=1.0;
+                    i++;
+                    continue;
+                }
+                 vis.put(s1,1.0);
+             double d=  dfs(graph,s2,s1,vis);
+            // System.out.println(d);
+                ans[i]=d;
+            }else{
+                 ans[i]=-1; 
+            }
+            i++;
+
+        }
+        return ans;
+    }
+ public double dfs(HashMap<String, HashMap<String, Double>> graph ,String s2,String s1,HashMap<String,Double> vis){
+         if(graph.containsKey(s1)){
+             HashMap<String,Double> m=graph.get(s1);
+             for(String n:m.keySet()){
+                 if(vis.containsKey(n)==false){
+                   if(n.equals(s2)){
+                    return m.get(s2);
+                }else{
+                    vis.put(n,1.0);
+                   double a= dfs(graph,s2,n,vis);
+                   if(a!=-1){
+                      return  a*m.get(n);
+                   }
+                }
+                 }
+               
+             }
+            }
+      return -1.0;
+    }
+}
