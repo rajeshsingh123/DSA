@@ -1,0 +1,45 @@
+  if(k==nums.length){
+            return nums;
+        }
+        HashMap<Integer,Integer> map=new HashMap<>();
+        PriorityQueue<Integer> pq=new PriorityQueue<>();
+        for(int i=0;i<nums.length;i++){
+            if(map.containsKey(nums[i])){
+                map.put(nums[i],map.get(nums[i])+1);
+            }else{
+                map.put(nums[i],1);
+            }
+        }
+      for(int m:map.keySet()){
+        //  System.out.println(map.get(m));
+          pq.add(map.get(m));
+      }
+      int s=map.size()-k;
+    //  System.out.print(s+"dsd");
+      while(s!=0){
+         // System.out.println(pq.poll());
+         pq.poll();
+          s--;
+      }
+      int ans[]=new int[k];
+      int i=0;
+      int size=pq.size();
+     // System.out.println(pq.size()+"size");
+     for(int m=0;m<size;m++){
+     int n=pq.poll();
+    // System.out.println(n+"top");
+     int f=0;
+         for(int l:map.keySet()){
+             if(map.get(l)==n){
+                 ans[i]=l;
+                 f=l;
+                 i++;
+                 break;
+                
+             }
+         }
+         map.remove(f);
+     }
+ 
+     return ans;
+    }
