@@ -1,0 +1,69 @@
+
+
+class node{
+    node value;
+    int dis;
+    int x;
+    int y;
+    node(int dis, int x , int y){
+        this.dis = dis;
+        this.x = x;
+        this.y = y;
+    }
+}
+
+class Solution {
+    public int[][] kClosest(int[][] p, int k) {
+         PriorityQueue<node> pq = new PriorityQueue<>((a,b) -> a.dis - b.dis);
+        for(int i =0;i<p.length;i++){
+            int total = p[i][0]*p[i][0] + p[i][1]*p[i][1];
+            node n = new node(total,p[i][0],p[i][1]);
+            pq.add(n);
+        }
+        int[][] ans = new int[k][2];
+        for(int i =0;i<k && pq.size()>0;i++){
+            node n = pq.poll();
+            ans[i][0] = n.x; 
+            ans[i][1] = n.y;
+        }
+        return ans;
+    }
+}
+
+
+ 
+
+
+// class Solution {
+//     public int[][] kClosest(int[][] points, int k) {
+//         PriorityQueue<Integer> pq=new PriorityQueue<>();
+//         HashMap<Integer,Integer> map=new HashMap<>();
+//         for(int i=0;i<points.length;i++){
+//             int dis=points[i][0]*points[i][0]+points[i][1]*points[i][1];
+//             pq.add(dis);
+//             map.put(i,dis);
+//         }
+    
+//     int ans[][]=new int [k][2];
+//     int idx=0;
+//     for(int i=0;i<k;i++){
+//         int dis=pq.poll();
+//         int l=0;
+//         for(int j:map.keySet()){
+//             if(map.get(j)==dis){
+//                ans[idx][0]=points[j][0];
+//                ans[idx][1]=points[j][1];
+//                l=j;
+//                break;
+//             }
+//         }
+//         map.remove(l);
+//         idx++;
+//         if(idx==k){
+//             break;
+//         }
+        
+//     }
+//     return ans;
+//     }
+// }
