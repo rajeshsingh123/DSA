@@ -1,0 +1,43 @@
+class Solution
+{
+    //Function to find the smallest positive number missing from the array.
+    static int missingNumber(int arr[], int size)
+    {
+   int min=Integer.MAX_VALUE;
+   int max=Integer.MIN_VALUE;
+   int p=0;
+   HashSet<Integer> set=new HashSet<>();
+   for(int i=0;i<arr.length;i++){
+       if(arr[i]<0){
+           continue;
+       }
+       if(arr[i]<min){
+           min=arr[i];
+       }
+       set.add(arr[i]);
+       p++;
+       if(arr[i]>max){
+           max=arr[i];
+       }
+   }
+   if(min>1){
+       return 1;
+   }
+   if(p-1==max-min){
+       return max+1;
+   }
+   while(min!=max){
+       if(set.contains(min)){
+           min++;
+           continue;
+       }else{
+           return min;
+       }
+       
+   }
+   
+   
+   return min+1;
+   
+    }
+}
