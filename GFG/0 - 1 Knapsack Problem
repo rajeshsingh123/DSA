@@ -1,0 +1,23 @@
+class Solution 
+{ 
+    //Function to return max value that can be put in knapsack of capacity W.
+    static int knapSack(int W, int wt[], int val[], int n) 
+    { 
+        int ans[][]=new int[n+1][W+1];
+        for(int i=1;i<ans.length;i++){
+            for(int j=1;j<ans[0].length;j++){
+                int cap=j;
+                int weight=wt[i-1];
+                if(cap>=weight){
+                    int r=val[i-1]+ans[i-1][j-weight];
+                    ans[i][j]=Math.max(r,ans[i-1][j]);
+                   // System.out.print(ans[i][j]+" ");
+                }else{
+                   ans[i][j]=ans[i-1][j];
+                }
+            }
+        }
+        return ans[ans.length-1][ans[0].length-1];
+    } 
+}
+
