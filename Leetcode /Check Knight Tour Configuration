@@ -1,0 +1,36 @@
+class Solution {
+    private final int[][] directions = new int[][]{{1, 2}, {2, 1}, {2, -1}, {1, -2}, {-1, -2}, {-2, -1}, {-2, 1}, {-1, 2}};
+
+    public boolean checkValidGrid(int[][] grid) {
+        if(grid[0][0]!=0){
+            return false;
+        }
+       return  dfs(grid,0,0,0);
+    }
+    public boolean dfs(int [][] grid,int r,int c,int move){
+     if(move==grid.length*grid.length-1){
+         return true;
+     }
+
+
+   for(int i=0;i<directions.length;i++){
+       int nr=r+directions[i][0];
+       int nc=c+directions[i][1];
+       if(isvalid(nr,nc,grid)){
+           if(grid[nr][nc]==move+1){
+       if(dfs(grid,nr,nc,move+1)){
+           return true;
+       }
+           }
+       }
+   }
+     return false;
+
+    }
+    public boolean isvalid(int r,int c, int[][] grid){
+        if(r<0 || c<0 || r>=grid.length || c>=grid.length){
+            return false;
+        }
+        return true;
+    }
+}
