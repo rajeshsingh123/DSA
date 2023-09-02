@@ -1,0 +1,35 @@
+class Solution {
+    public int minExtraChar(String s, String[] dictionary) {
+        HashMap<String,Integer> map=new HashMap<>();
+        for(String st:dictionary){
+            map.put(st,1);
+        }
+        int dp[]=new int[s.length()];
+        for(int i=0;i<dp.length;i++){
+            dp[i]=-1;
+        }
+       return fun(s,dp,map,0);
+    }
+    public int fun(String s,int[] dp, HashMap<String,Integer> map,int idx){
+       if(idx>=s.length()){
+           return 0;
+       }
+       if(dp[idx]!=-1){
+         return dp[idx];
+       }
+     String currstr="";
+     int res=s.length();
+      for(int curr=idx;curr<s.length();curr++){
+      currstr=currstr+s.charAt(curr);
+      int extrcount=currstr.length();
+      if(map.containsKey(currstr)){
+         extrcount=0;
+      }
+         extrcount+=fun(s,dp,map,curr+1);
+         res=Math.min(res,extrcount);
+            
+      }
+      return dp[idx]=res;
+
+    }
+}
