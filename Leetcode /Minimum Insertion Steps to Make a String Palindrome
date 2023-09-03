@@ -1,0 +1,84 @@
+class Solution {
+    public int minInsertions(String s) {
+       int dp[][]=new int[s.length()][s.length()];
+        for(int g=0;g<s.length();g++){
+            for(int i=0,j=g; j<dp.length;j++,i++){
+              if(g==0){
+                  dp[i][j]=1;
+              }else if(g==1){
+                  dp[i][j]=s.charAt(i)==s.charAt(j)?2:1;
+              }else{
+                  if(s.charAt(i)==s.charAt(j)){
+                      dp[i][j]=2+dp[i+1][j-1];
+                  }else{
+                      dp[i][j]=Math.max(dp[i][j-1],dp[i+1][j]);
+                  }
+              }
+            }
+        }
+           return s.length()-dp[0][s.length()-1];
+    
+
+    }
+}
+
+//---Memoization-------------Accepted
+// class Solution {
+//     public int minInsertions(String s) {
+//        HashMap<String,Integer> map=new HashMap<>();
+//        return fun(s,0,s.length()-1,map);
+//     }
+//     public int fun(String s,int sidx,int lidx, HashMap<String,Integer> map){
+//       if(sidx>=lidx){
+//           return 0;
+//       }
+//       String a=s.substring(sidx,lidx+1);
+//       if(map.containsKey(a)){
+//          return map.get(a);
+//       }
+//      char f=s.charAt(sidx);
+//      char l=s.charAt(lidx);
+//      int cnt=0;
+//    //  String a=s.SubsString(f,l+1);
+//      if(f==l){
+//         cnt+= fun(s,sidx+1,lidx-1,map);
+//      }else{
+//         cnt++;
+//        int cnt1=fun(s,sidx+1,lidx,map);
+//        int cnt2=fun(s,sidx,lidx-1,map);
+//        cnt+=Math.min(cnt1,cnt2);
+//      }
+//      map.put(a,cnt);
+//      return cnt;
+    
+
+//     }
+// }
+
+
+
+//--------Recursion TLE Coming-----
+// class Solution {
+//     public int minInsertions(String s) {
+//        return fun(s,0,s.length()-1);
+//     }
+//     public int fun(String s,int sidx,int lidx){
+//       if(sidx>=lidx){
+//           return 0;
+//       }
+//      char f=s.charAt(sidx);
+//      char l=s.charAt(lidx);
+//      int cnt=0;
+//      if(f==l){
+//         cnt+= fun(s,sidx+1,lidx-1);
+//      }else{
+//         cnt++;
+//        int cnt1=fun(s,sidx+1,lidx);
+//        int cnt2=fun(s,sidx,lidx-1);
+//        cnt+=Math.min(cnt1,cnt2);
+//      }
+//      return cnt;
+    
+
+//     }
+// }
