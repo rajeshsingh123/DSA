@@ -1,0 +1,34 @@
+class Solution {
+    public int minDeletions(String s) {
+       int freq[] = new int[26];
+	     for (char c : s.toCharArray()){
+            freq[c - 'a']++;
+         }
+		 Arrays.sort(freq);
+	     int st=0; 
+         int end=freq.length-1;
+         while(st<end){
+             int t=freq[st];
+             freq[st]=freq[end];
+             freq[end]=t;
+             st++;
+             end--;
+         }
+         
+        int maxf=freq[0]-1;
+        int totaldel=0;
+        for(int i=1;i<=25;i++){
+            if(freq[i]!=0){
+             if(freq[i]>maxf){
+                 if(maxf>0){
+                totaldel+=(freq[i]-maxf);
+                 }else{
+                     totaldel+=freq[i];
+                 }
+             }
+            }
+            maxf=Math.min(maxf-1,freq[i]-1);
+        }
+  return totaldel;
+    }
+}
