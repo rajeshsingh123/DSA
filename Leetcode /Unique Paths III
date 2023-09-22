@@ -1,0 +1,52 @@
+class Solution {
+    public int uniquePathsIII(int[][] grid) {
+        int sti=0;
+        int stj=0;
+        int desi=0;
+        int desj=0;
+        int vis[][]=new int[grid.length][grid[0].length];
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                if(grid[i][j]==1){
+                    sti=i;
+                    stj=j;
+                }
+               if(grid[i][j]==2){
+                   desi=i;
+                   desj=j;
+               }
+
+            }  
+        }
+    return fun(sti,stj,desi,desj,grid,vis);
+    }
+    public int fun(int sti,int stj,int desi,int desj,int grid[][],int [][] vis){
+      if(sti<0 || stj>=grid[0].length || sti>=grid.length || stj<0 || grid[sti][stj]==-1 ){
+          return 0;
+      } 
+      if(vis[sti][stj]==1){
+          return 0;
+      }
+     
+      if(sti==desi && stj==desj){
+            for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                if(grid[i][j]==0){
+                if(vis[i][j]==0){
+                    return 0;
+                }                  
+                }
+            }  
+        }
+          return 1;
+      }
+       vis[sti][stj]=1;
+   int ans=0;
+   ans+=fun(sti+1,stj,desi,desj,grid,vis);
+   ans+=fun(sti,stj+1,desi,desj,grid,vis);
+   ans+=fun(sti-1,stj,desi,desj,grid,vis);
+   ans+=fun(sti,stj-1,desi,desj,grid,vis);
+   vis[sti][stj]=0;
+    return ans;
+    }
+}
