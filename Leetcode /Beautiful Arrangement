@@ -1,0 +1,26 @@
+class Solution {
+    public int countArrangement(int n) {
+        int vis[]=new int[n+1];
+       return fun(vis,n,n,1,n);
+    }
+    public int fun(int[] vis,int n,int a,int k,int tn){
+     if(a==0){
+        return 1;
+    }
+
+  int ans=0;
+    for(int i=1;i<=tn;i++){
+     if(vis[i]==0){
+         if(i%k==0 || k%i==0){
+             vis[i]=1;
+            ans+= fun(vis,n-1,a-1,k+1,tn);
+            vis[i]=0;
+         }
+     }
+
+    }
+   return ans;
+
+
+    }
+}
